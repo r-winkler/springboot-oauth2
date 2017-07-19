@@ -10,35 +10,44 @@ import org.springframework.security.oauth2.client.OAuth2RestOperations;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
+import org.springframework.security.oauth2.common.exceptions.UserDeniedAuthorizationException;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
+
 @SpringBootApplication
 @RestController
+@EnableOAuth2Client
 public class ClientApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ClientApplication.class, args);
 	}
 
-	@Value("${oauth.resource:http://localhost:8082}")
-	private String baseUrl;
-
-	@Value("${oauth.authorize:http://localhost:8082/oauth/authorize}")
-	private String authorizeUrl;
-
-	@Value("${oauth.token:http://localhost:8082/oauth/token}")
-	private String tokenUrl;
-
-	@Value("${oauth.clientId:my-trusted-client}")
+	@Value("${oauth2.clientId}")
 	private String clientId;
+
+	@Value("${oauth2.clientSecret}")
+	private String clientSecret;
+
+	@Value("${oauth2.userAuthorizationUri}")
+	private String userAuthorizationUri;
+
+	@Value("${oauth2.accessTokenUri}")
+	private String accessTokenUri;
+
+	@Value("${oauth2.resourceUri}")
+	private String resourceUri;
 
 	@Autowired
 	private OAuth2RestOperations restTemplate;
 
 	@RequestMapping("/hello")
 	public String hello() {
-		return restTemplate.getForObject(baseUrl + "/hello", String.class);
+		return restTemplate.getForObject(resourceUri + "/hello", String.class);
 	}
 
 	@Bean
@@ -49,10 +58,18 @@ public class ClientApplication {
 	@Bean
 	protected OAuth2ProtectedResourceDetails resource() {
 		AuthorizationCodeResourceDetails resource = new AuthorizationCodeResourceDetails();
-		resource.setAccessTokenUri(tokenUrl);
-		resource.setUserAuthorizationUri(authorizeUrl);
 		resource.setClientId(clientId);
-		return resource ;
+		resource.setClientSecret(clientSecret);
+		resource.setUserAuthorizationUri(userAuthorizationUri);
+		resource.setAccessTokenUri(accessTokenUri);
+		resource.setScope(Arrays.asList("read"));
+		return resource;
 	}
+
+	@ExceptionHandler({UserDeniedAuthorizationException.class})
+	public String userDeniedAuthorization() {
+		return "Access denied.";
+	}
+
 
 }

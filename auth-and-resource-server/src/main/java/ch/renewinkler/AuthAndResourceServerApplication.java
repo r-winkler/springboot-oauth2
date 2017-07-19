@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@EnableResourceServer
 @RestController
+@EnableResourceServer
 public class AuthAndResourceServerApplication {
 
     public static void main(String[] args) {
@@ -28,6 +29,7 @@ public class AuthAndResourceServerApplication {
     }
 
     @RequestMapping("/hello")
+    @PreAuthorize("hasRole('TRUSTED_CLIENT')")
     public String hello() {
         return "Hello World";
     }
@@ -60,10 +62,10 @@ public class AuthAndResourceServerApplication {
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
             clients.inMemory()
                     .withClient("my-trusted-client")
-                    .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
-                    .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
-                    .scopes("read", "write", "trust")
-                    .resourceIds("oauth2-resource")
+                    .secret("secret")
+                    .authorizedGrantTypes("authorization_code", "refresh_token")
+                    .authorities("TRUSTED_CLIENT")
+                    .scopes("read")
                     .accessTokenValiditySeconds(60);
         }
 
