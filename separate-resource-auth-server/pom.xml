@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ch.renewinkler</groupId>
-    <artifactId>springboot-oauth2</artifactId>
+    <artifactId>separate-resource-auth-server</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <modules>
-        <module>client</module>
-        <module>auth-and-resource-server</module>
+        <module>auth-server</module>
+        <module>resource-server</module>
     </modules>
 
     <parent>

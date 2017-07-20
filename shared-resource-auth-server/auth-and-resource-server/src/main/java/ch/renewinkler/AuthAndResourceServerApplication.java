@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -29,9 +28,9 @@ public class AuthAndResourceServerApplication {
     }
 
     @RequestMapping("/hello")
-    @PreAuthorize("hasRole('TRUSTED_CLIENT')")
+    //@PreAuthorize("#oauth2.hasScope('read')")
     public String hello() {
-        return "Hello World";
+        return "Hello World from resource";
     }
 
     @Configuration

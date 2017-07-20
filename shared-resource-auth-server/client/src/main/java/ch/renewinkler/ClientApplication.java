@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 
 @SpringBootApplication
-@RestController
 @EnableOAuth2Client
+@RestController
 public class ClientApplication {
 
 	public static void main(String[] args) {
