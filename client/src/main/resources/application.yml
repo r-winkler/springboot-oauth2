@@ -5,9 +5,6 @@ server:
 security:
   basic:
     enabled: false
-  oauth2:
-      resource:
-        filter-order: 1
 
 oauth2:
     clientId: my-trusted-client
