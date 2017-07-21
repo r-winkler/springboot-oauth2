@@ -19,7 +19,7 @@ public class AuthAndResourceServerApplication {
     }
 
     @RequestMapping("/api/hello")
-    @PreAuthorize("#oauth2.clientHasRole('TRUSTED_CLIENT') and #oauth2.hasScope('read')")
+    @PreAuthorize("#oauth2.clientHasRole('ROLE_TRUSTED_CLIENT') and #oauth2.hasScope('read')")
     public Greeting hello() {
         return new Greeting(1l, "Hello from resource server");
     }
