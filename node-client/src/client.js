@@ -34,7 +34,7 @@ var client = {
     "scope": "read"
 };
 
-var protectedResource = 'http://localhost:8082/hello';
+var protectedResource = 'http://localhost:8082/api/hello';
 
 var state = null;
 
