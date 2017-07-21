@@ -18,8 +18,8 @@ public class AuthAndResourceServerApplication {
         SpringApplication.run(AuthAndResourceServerApplication.class, args);
     }
 
-    @RequestMapping("/hello")
-    @PreAuthorize("#oauth2.hasScope('read')")
+    @RequestMapping("/api/hello")
+    @PreAuthorize("#oauth2.clientHasRole('TRUSTED_CLIENT') and #oauth2.hasScope('read')")
     public Greeting hello() {
         return new Greeting(1l, "Hello from resource server");
     }

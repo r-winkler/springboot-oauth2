@@ -47,7 +47,7 @@ public class ClientApplication {
 
     @RequestMapping("/hello")
     public String hello() {
-        return restTemplate.getForObject(resourceUri + "/hello", String.class);
+        return restTemplate.getForObject(resourceUri + "/api/hello", String.class);
     }
 
     @Bean
