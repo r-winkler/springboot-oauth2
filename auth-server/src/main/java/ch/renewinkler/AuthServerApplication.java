@@ -65,9 +65,10 @@ public class AuthServerApplication extends AuthorizationServerConfigurerAdapter 
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-        oauthServer
-                .tokenKeyAccess("isAnonymous() || hasRole('ROLE_TRUSTED_CLIENT')") // permitAll()
-                .checkTokenAccess("isAnonymous() || hasRole('TRUSTED_CLIENT')"); // isAuthenticated()
+//        oauthServer.tokenKeyAccess("isAnonymous() || hasAuthority('ROLE_TRUSTED_CLIENT')")
+//                .checkTokenAccess("hasAuthority('ROLE_TRUSTED_CLIENT')");
+        oauthServer.tokenKeyAccess("permitAll()")
+                .checkTokenAccess("permitAll()");
     }
 
     @Override
@@ -76,7 +77,7 @@ public class AuthServerApplication extends AuthorizationServerConfigurerAdapter 
                 .withClient("my-trusted-client")
                 .secret("secret")
                 .authorizedGrantTypes("authorization_code", "refresh_token")
-                .authorities("TRUSTED_CLIENT")
+                .authorities("ROLE_TRUSTED_CLIENT")
                 .scopes("read")
                 .accessTokenValiditySeconds(60);
     }

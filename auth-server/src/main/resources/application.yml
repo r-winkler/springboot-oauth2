@@ -1,6 +1,10 @@
 server:
   port: 8084
 
+logging:
+    level:
+        org.springframework: 'DEBUG'
+
 config:
     oauth2:
         # openssl genrsa -out jwt.pem 2048
