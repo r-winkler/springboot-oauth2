@@ -6,12 +6,19 @@ security:
   basic:
     enabled: false
 
+#oauth2:
+#    clientId: my-trusted-client
+#    clientSecret: secret
+#    userAuthorizationUri: http://localhost:8082/oauth/authorize
+#    accessTokenUri: http://localhost:8082/oauth/token
+#    resourceUri: http://localhost:8082
+
 oauth2:
     clientId: my-trusted-client
     clientSecret: secret
-    userAuthorizationUri: http://localhost:8082/oauth/authorize
-    accessTokenUri: http://localhost:8082/oauth/token
-    resourceUri: http://localhost:8082
+    userAuthorizationUri: http://localhost:8084/oauth/authorize
+    accessTokenUri: http://localhost:8084/oauth/token
+    resourceUri: http://localhost:8085
 
 logging:
   level: org.springframework=DEBUG

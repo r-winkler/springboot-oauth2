@@ -18,11 +18,19 @@ app.set('views', 'files/client');
 
 // authorization server information
 var authServer = {
-    authorizationEndpoint: 'http://localhost:8082/oauth/authorize',
-    tokenEndpoint: 'http://localhost:8082/oauth/token',
-    revocationEndpoint: 'http://localhost:8082/oauth/revoke',
-    registrationEndpoint: 'http://localhost:8082/oauth/register',
-    userInfoEndpoint: 'http://localhost:8082/oauth/userinfo'
+    // shared auth/resource server config
+    // authorizationEndpoint: 'http://localhost:8082/oauth/authorize',
+    // tokenEndpoint: 'http://localhost:8082/oauth/token',
+    // revocationEndpoint: 'http://localhost:8082/oauth/revoke',
+    // registrationEndpoint: 'http://localhost:8082/oauth/register',
+    // userInfoEndpoint: 'http://localhost:8082/oauth/userinfo'
+
+    // separate auth/resource server config
+    authorizationEndpoint: 'http://localhost:8084/oauth/authorize',
+    tokenEndpoint: 'http://localhost:8084/oauth/token',
+    revocationEndpoint: 'http://localhost:8084/oauth/revoke',
+    registrationEndpoint: 'http://localhost:8084/oauth/register',
+    userInfoEndpoint: 'http://localhost:8084/oauth/userinfo'
 };
 
 // client information
@@ -34,7 +42,8 @@ var client = {
     "scope": "read"
 };
 
-var protectedResource = 'http://localhost:8082/api/hello';
+//var protectedResource = 'http://localhost:8082/api/hello';
+var protectedResource = 'http://localhost:8085/api/hello';
 
 var state = null;
 
