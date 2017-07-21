@@ -42,7 +42,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                 .withClient("my-trusted-client")
                 .secret("secret")
                 .authorizedGrantTypes("authorization_code", "refresh_token")
-                .authorities("TRUSTED_CLIENT")
+                .authorities("ROLE_TRUSTED_CLIENT")
                 .scopes("read")
                 .accessTokenValiditySeconds(60);
     }
